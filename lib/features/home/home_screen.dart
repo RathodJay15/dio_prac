@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   UserModel? _user;
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   // Dummy user data (replace with SharedPrefs / SecureStorage)
   final String username = 'emilys';
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mini Store Admin'),
+        title: const Text('Our Products'),
         actions: [
           IconButton(onPressed: () => _logout(), icon: Icon(Icons.logout)),
         ],
@@ -62,6 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             if (_user != null)
               UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors
+                      .orangeAccent, // Or use Colors.red, Color(0xFF....), etc.
+                ),
                 accountName: Text(
                   '${_user!.firstName} ${_user!.lastName} || ${_user!.username}',
                 ),
@@ -96,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }),
             ),
 
-            Divider(height: 2, color: Colors.deepPurple),
+            Divider(height: 2, color: Colors.orangeAccent),
 
             ListTile(
               leading: const Icon(Icons.logout),
@@ -112,6 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       //  Bottom Navigation
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.orange,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
