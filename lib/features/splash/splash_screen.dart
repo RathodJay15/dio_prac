@@ -1,3 +1,4 @@
+import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import '../../core/storage/token_storage.dart';
 import '../auth/login_screen.dart';
@@ -29,14 +30,16 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  void _navigateToHome() {
+  Future<void> _navigateToHome() async {
+    await Future.delayed(const Duration(seconds: 3));
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const HomeScreen()),
     );
   }
 
-  void _navigateToLogin() {
+  Future<void> _navigateToLogin() async {
+    await Future.delayed(const Duration(seconds: 2));
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const LoginScreen()),
@@ -45,6 +48,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Lottie.asset(
+          'assets/lottie/splash_animation.json',
+          width: 500,
+          repeat: true,
+          animate: true,
+        ),
+      ),
+    );
   }
 }

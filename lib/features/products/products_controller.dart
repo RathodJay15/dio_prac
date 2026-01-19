@@ -4,7 +4,7 @@ import 'products_service.dart';
 class ProductsController {
   final ProductsService _service = ProductsService();
 
-  final int _limit = 20;
+  final int _limit = 10;
   int _skip = 0;
   bool _hasMore = true;
   bool _isLoading = false;
@@ -21,7 +21,9 @@ class ProductsController {
     bool refresh = false,
     String search = '',
   }) async {
-    if (_isLoading) return null;
+    if (isLoading) return null;
+    if (!hasMore && !refresh) return null;
+    _isLoading = true;
 
     //  Cancel previous request (important)
     _cancelToken?.cancel();
@@ -34,7 +36,6 @@ class ProductsController {
     }
 
     _currentSearch = search;
-    _isLoading = true;
 
     try {
       final response = await _service.fetchProducts(
