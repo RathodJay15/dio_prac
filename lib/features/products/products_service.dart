@@ -9,6 +9,9 @@ class ProductsService {
     required int limit,
     required int skip,
     String? search,
+    String? category,
+    String? sortBy,
+    String? order,
     CancelToken? cancelToken,
   }) {
     return _dio.get(
@@ -19,7 +22,28 @@ class ProductsService {
         'limit': limit,
         'skip': skip,
         if (search != null && search.isNotEmpty) 'q': search,
+        if (category != null) 'category': category,
+        if (sortBy != null) 'sortBy': sortBy,
+        if (order != null) 'order': order,
       },
+      cancelToken: cancelToken,
+    );
+  }
+
+  Future<List<String>> fetchCategories() async {
+    final response = await _dio.get(ApiConstants.productCategory);
+    return List<String>.from(response.data);
+  }
+
+  Future<Response> fetchProductsByCategory({
+    required String category,
+    required int limit,
+    required int skip,
+    CancelToken? cancelToken,
+  }) {
+    return _dio.get(
+      '/products/category/$category',
+      queryParameters: {'limit': limit, 'skip': skip},
       cancelToken: cancelToken,
     );
   }

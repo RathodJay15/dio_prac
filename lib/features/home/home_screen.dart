@@ -1,4 +1,4 @@
-import 'package:dio_prac/features/auth/login_screen.dart';
+import 'package:ecommerce/features/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import '../products/add_product_screen.dart';
 import '../users/users_screen.dart';
@@ -16,10 +16,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   UserModel? _user;
   int _currentIndex = 1;
-
-  // Dummy user data (replace with SharedPrefs / SecureStorage)
-  final String username = 'emilys';
-  final String email = 'emily.johnson@dummyjson.com';
 
   final List<Widget> _screens = const [
     UsersScreen(),

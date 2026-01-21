@@ -17,9 +17,27 @@ class ProductsController {
   bool get hasMore => _hasMore;
   bool get isLoading => _isLoading;
 
+  String? _selectedCategory;
+  List<String> categories = [];
+
+  String? selectedCategory;
+
+  void setCategory(String? category) {
+    selectedCategory = category;
+  }
+
+  Future<void> applyFilters() async {
+    await fetchProducts(refresh: true, category: selectedCategory);
+  }
+
+  Future<void> loadCategories() async {
+    categories = await _service.fetchCategories();
+  }
+
   Future<String?> fetchProducts({
     bool refresh = false,
     String search = '',
+    String? category,
   }) async {
     if (isLoading) return null;
     if (!hasMore && !refresh) return null;
@@ -29,21 +47,32 @@ class ProductsController {
     _cancelToken?.cancel();
     _cancelToken = CancelToken();
 
-    if (refresh || search != _currentSearch) {
+    if (refresh || search != _currentSearch || category != _selectedCategory) {
       _skip = 0;
       _hasMore = true;
       products.clear();
     }
 
     _currentSearch = search;
+    _selectedCategory = category;
 
     try {
-      final response = await _service.fetchProducts(
-        limit: _limit,
-        skip: _skip,
-        search: search,
-        cancelToken: _cancelToken,
-      );
+      late Response response;
+      if (category != null && category.isNotEmpty) {
+        response = await _service.fetchProductsByCategory(
+          category: category,
+          limit: _limit,
+          skip: _skip,
+          cancelToken: _cancelToken,
+        );
+      } else {
+        response = await _service.fetchProducts(
+          limit: _limit,
+          skip: _skip,
+          search: search,
+          cancelToken: _cancelToken,
+        );
+      }
 
       final List data = response.data['products'];
 

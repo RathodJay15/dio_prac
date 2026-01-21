@@ -23,6 +23,13 @@ class _LoginScreenState extends State<LoginScreen> {
       _error = null;
     });
 
+    // if (_usernameController.text.trim().isEmpty) {
+    //   error = "Please enter username !";
+    // }
+    // if (_passwordController.text.trim().isEmpty) {
+    //   error = "Please enter password !";
+    // }
+
     final error = await _authController.login(
       username: _usernameController.text.trim(),
       password: _passwordController.text.trim(),
@@ -46,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: TextSelectionTheme(
         data: TextSelectionThemeData(
@@ -72,6 +79,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    Container(
+                      height: 80,
+                      width: 80,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Image.asset(
+                        'assets/images/img_ecommerce_small.jpg',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                     Text(
                       'LOGIN',
                       style: TextStyle(
@@ -160,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     const SizedBox(height: 20),
 
-                    /// Error message
+                    // show Error
                     if (_error != null)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8),

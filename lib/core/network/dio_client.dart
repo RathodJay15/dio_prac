@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'network_interceptor.dart';
-import 'package:dio_prac/core/constants/api_constants.dart';
+import '/core/constants/api_constants.dart';
 
 class DioClient {
   static DioClient? _instance;

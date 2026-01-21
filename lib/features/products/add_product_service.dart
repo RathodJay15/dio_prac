@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:dio_prac/core/constants/api_constants.dart';
+import '/core/constants/api_constants.dart';
 import '../../core/network/dio_client.dart';
 
 class AddProductService {
